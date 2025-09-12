@@ -30,6 +30,8 @@ public class Main {
                 String name = rs.getString("name");
                 int credit = rs.getInt("credits");
                 int hour = rs.getInt("studyhours");
+                //vasghjdfaisdgaksjdkasjhdkajhsdkashdjashda
+                
                 //System.out.println(code + "\t" + name + "\t" + credit + "\t" + hour);
                 System.out.printf("|%10s|%-40s|%2d|%4d\n", code, name, credit, hour);// in gióng lề
 
