@@ -2,6 +2,7 @@ package com.annguyen.supperapp.entity;
 
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Nationalized;
 //
 
 // CLASS nay se dc khai de
@@ -13,6 +14,8 @@ public class Student {
     @Id
     @Column(name = "Id") // neu khong co khai bao nay thi mac dinh lay feild lam cot
     private  String id;// CAMEL CASE, id tu nhao (id tu tang tinh sau
+    @Nationalized // thieu khai bao nay String -> varchar ko luu tieng viet dc -> de string bien thanh nvarchar thi can them khai bao @nationalized
+    //neu ko lam ,, tieng viet se ra dau hoi cham ? thay the cho dau tieng viet
 
     @Column(name = "Name", nullable = false, length = 50)
     private  String name;
