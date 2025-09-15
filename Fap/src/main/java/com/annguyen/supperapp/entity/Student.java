@@ -2,7 +2,7 @@ package com.annguyen.supperapp.entity;
 
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Nationalized;
+//import org.hibernate.annotations.Nationalized; CHI DANH RIENG CHO HIBERNATE
 //
 
 // CLASS nay se dc khai de
@@ -12,12 +12,14 @@ import org.hibernate.annotations.Nationalized;
 // lam ten table
 public class Student {
     @Id
-    @Column(name = "Id") // neu khong co khai bao nay thi mac dinh lay feild lam cot
+    @Column(name = "Id",columnDefinition = "CHAR(8)") // neu khong co khai bao nay thi mac dinh lay feild lam cot
     private  String id;// CAMEL CASE, id tu nhao (id tu tang tinh sau
-    @Nationalized // thieu khai bao nay String -> varchar ko luu tieng viet dc -> de string bien thanh nvarchar thi can them khai bao @nationalized
+    //@Nationalized // thieu khai bao nay String -> varchar ko luu tieng viet dc -> de string bien thanh nvarchar thi can them khai bao @nationalized
     //neu ko lam ,, tieng viet se ra dau hoi cham ? thay the cho dau tieng viet
+    // Ta dung @Nationalized cua hibernate, se đi tính khả chuyển khi code này ta không chơi với eclipse link nữa
+    // Độ varchar chơi với nhiều nhà cung cấp ORM  // JPA hơn QUA columnDefinition
 
-    @Column(name = "Name", nullable = false, length = 50)
+    @Column(name = "Name", nullable = false, length = 50, columnDefinition = "NVARCHAR(50)")
     private  String name;
 
     @Column(name = "Yob", nullable = false)

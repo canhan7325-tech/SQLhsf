@@ -14,13 +14,15 @@ import java.util.List;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.annguyen.supperapp-PU");
     public static void main(String[] args) {
     insertStudent();// tao bang, chen data qua OOP, code first
     getAllStudent();// sellect * from Student theo style OOP, code first
     }
     //INSERT / TAO MOI SV
+
     public static  void  insertStudent() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.annguyen.supperapp-PU");
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.annguyen.supperapp-PU");
         // GUI THONG SO CAU HINH Server. nha thau JPA: Hibernate, nha thau JDBC class lo de tao ket noi toi CSDL
         // cu the SQL Server, MySQL, Oracle, PostgreeSQL
         EntityManager em = emf.createEntityManager();
@@ -35,12 +37,19 @@ public class Main {
         em.getTransaction().begin();// bat buoc  phai co Transaction khi co su thay doi trong Db
         em.persist(an);// create table dien ra ngam
         em.persist(cuong);// goi la code first, code ra table
+        //if (em.find(Student.class, "SE1") == null) {
+           // em.persist(an);
+        //}
+        //if (em.find(Student.class, "SE2") == null) {
+            //em.persist(cuong);
+        //}
         //code ra data
         //insert into student values
         em.getTransaction().commit();// hoac ca 3 insert thanh cong, hoac chua ban nao dc insert
         // sellect   ko can , vi ko thay doi trang thai table
         em.close();// sa thai ong sep da xong
-        emf.close(); // ngat ket noi csdl vi da xong
+//        emf.close(); // ngat ket noi csdl vi da xong - khi app shutdown moi dong
+
 
     }
 
@@ -49,7 +58,7 @@ public class Main {
 
 
     public static  void  getAllStudent(){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.annguyen.supperapp-PU");
+        //EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.annguyen.supperapp-PU");
 
         EntityManager em = emf.createEntityManager();
         List<Student> results = em.createQuery("from  Student", Student.class).getResultList();
