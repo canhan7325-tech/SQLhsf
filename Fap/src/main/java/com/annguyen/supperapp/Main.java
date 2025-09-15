@@ -1,5 +1,6 @@
 package com.annguyen.supperapp;
 
+import com.annguyen.supperapp.entity.Lectuter;
 import com.annguyen.supperapp.entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -18,8 +19,47 @@ public class Main {
     public static void main(String[] args) {
     insertStudent();// tao bang, chen data qua OOP, code first
     getAllStudent();// sellect * from Student theo style OOP, code first
+    insertLectuter();
+    getAllLectuter();
+       emf.close();
     }
     //INSERT / TAO MOI SV
+    public static void insertLectuter() {
+        EntityManager em = emf.createEntityManager();
+        Lectuter vuong = new  Lectuter("Vuong Nguyen", 1980, 20_000_000);
+        Lectuter linh = new  Lectuter("Linh Nguyen", 1985, 25_000_000);
+
+
+        em.getTransaction().begin();
+        em.persist(vuong);
+        em.persist(linh);
+        em.getTransaction().commit();
+        em.close();
+
+    }
+    public static void getAllLectuter() {
+        EntityManager em = emf.createEntityManager();
+        List<Lectuter> results = em.createQuery("from  Lectuter", Lectuter.class).getResultList();
+        System.out.println("The list of lectuters: ");
+       for (Lectuter x : results) {
+           System.out.println(x);// goi tham ten em toString() cua sinh vien
+        }
+
+        //bieu thuc lambda- lamda expression, dinh dang cuc ki chat che voi stream API, co che xu li nhieu du lieu o trong ram
+        // lamda expression la ham vo danh, ham an danh
+        // dinh den khai niem lap trinh ham - functional programming
+        // ham duoc xem la data va ham la tham so de truyen vao ham khac
+        System.out.println("The list of lectutersby lambda: ");
+        results.forEach( x -> {
+            //System.out.println(x);
+            System.out.printf("The list of 1 from 100");
+            for (int i = 1; i < 100; i++) {
+                System.out.println(i +" ");
+            }
+        });
+        em.close();
+    }
+
 
     public static  void  insertStudent() {
 //        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.annguyen.supperapp-PU");
@@ -70,6 +110,6 @@ public class Main {
         }
         // dung bieu thuc lambda in ra cung dc
         em.close();
-        emf.close();
+        //emf.close();
     }
 }
