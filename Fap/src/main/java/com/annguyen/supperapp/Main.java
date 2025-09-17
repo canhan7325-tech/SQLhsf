@@ -13,23 +13,27 @@ import java.util.List;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.annguyen.supperapp-PU");
+
     public static void main(String[] args) {
 // insertStudent();// tao bang, chen data qua OOP, code first
 // getAllStudent();// sellect * from Student theo style OOP, code first
-  insertLectuter();
+        insertLectuter();
 //    getAllLectuter();
 //    searchLectuter();
+
+        update();
         findByid();
-       emf.close();
+        emf.close();
 
     }
+
     //INSERT / TAO MOI SV
     public static void insertLectuter() {
         EntityManager em = emf.createEntityManager();
-        Lectuter vuong = new  Lectuter("Vuong Nguyen", 1980, 20_000_000);
-        Lectuter linh = new  Lectuter("Linh Nguyen", 1985, 25_000_000);
-        Lectuter anh = new  Lectuter("Anh Nguyen", 1990, 30_000_000);
-        Lectuter binh = new  Lectuter("Binh Nguyen", 1995, 15_000_000);
+        Lectuter vuong = new Lectuter("Vuong Nguyen", 1980, 20_000_000);
+        Lectuter linh = new Lectuter("Linh Nguyen", 1985, 25_000_000);
+        Lectuter anh = new Lectuter("Anh Nguyen", 1990, 30_000_000);
+        Lectuter binh = new Lectuter("Binh Nguyen", 1995, 15_000_000);
         // goi sep Entity manager giup CRUD
 
 
@@ -42,12 +46,13 @@ public class Main {
         em.close();
 
     }
+
     public static void getAllLectuter() {
         EntityManager em = emf.createEntityManager();
         List<Lectuter> result = em.createQuery("SELECT x FROM Lectuter x where x.salary = 20000000", Lectuter.class).getResultList();
         System.out.println("The list of lectuters: ");
-       for (Lectuter x : result) {
-           System.out.println(x);// goi tham ten em toString() cua sinh vien
+        for (Lectuter x : result) {
+            System.out.println(x);// goi tham ten em toString() cua sinh vien
         }
 
         //bieu thuc lambda- lamda expression, dinh dang cuc ki chat che voi stream API, co che xu li nhieu du lieu o trong ram
@@ -65,7 +70,7 @@ public class Main {
         em.close();
     }
 
-    public static void searchLectuter(){
+    public static void searchLectuter() {
         EntityManager em = emf.createEntityManager();
         List<Lectuter> result = em.createQuery("SELECT x FROM Lectuter x where x.salary = :pSalary", Lectuter.class).setParameter("pSalary", 20000000).getResultList();
 //        String msg = "Hello";
@@ -79,7 +84,7 @@ public class Main {
     }
 
 
-    public static  void  insertStudent() {
+    public static void insertStudent() {
 //        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.annguyen.supperapp-PU");
         // GUI THONG SO CAU HINH Server. nha thau JPA: Hibernate, nha thau JDBC class lo de tao ket noi toi CSDL
         // cu the SQL Server, MySQL, Oracle, PostgreeSQL
@@ -96,10 +101,10 @@ public class Main {
         em.persist(an);// create table dien ra ngam
         em.persist(cuong);// goi la code first, code ra table
         //if (em.find(Student.class, "SE1") == null) {
-           // em.persist(an);
+        // em.persist(an);
         //}
         //if (em.find(Student.class, "SE2") == null) {
-            //em.persist(cuong);
+        //em.persist(cuong);
         //}
         //code ra data
         //insert into student values
@@ -115,7 +120,7 @@ public class Main {
     // SELLECT * LAY HET DATA
 
 
-    public static  void  getAllStudent(){
+    public static void getAllStudent() {
         //EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.annguyen.supperapp-PU");
 
         EntityManager em = emf.createEntityManager();
@@ -130,7 +135,8 @@ public class Main {
         em.close();
         //emf.close();
     }
-//    //EntityManager là ông sếp quản lí các Entity ~ chính là các class có @Entity và
+
+    //    //EntityManager là ông sếp quản lí các Entity ~ chính là các class có @Entity và
 //    quản lí các object tạo từ class Entity: sếp có thể thêm persit(); xoá remove();
 //    cập nhật merge(); tìm theo PK find(): lí do có hàm tìm theo key, vì ta luôn có nhu
 //    cầu thao tác trên 1 dòng/row/record cụ thể trong table
@@ -142,21 +148,24 @@ public class Main {
 //ngoài ra có hàm createQuery() tìm linh hoạt theo điều kiện nào đó
 //
 //    //HỌC THÊM VỀ JPQL: JAVA PERSISTENCE QUERY LANGUAGE
-    public static void findByid(){
+    public static void findByid() {
         EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
         // tim theo key chi tra ve 1 dong
-        Lectuter x = em.find(Lectuter.class, 1);
+        Lectuter x = em.find(Lectuter.class, 5);
         Student y = em.find(Student.class, "SE2");
         System.out.println("Lectuter found: " + x);
         System.out.println("Student found: " + y);
 
 
     }
+
     // khi lam cac hanh dong,xoa , sua , them anh huong va thay doi hien trang DB
     // ta phai nhet no vao ransaction de theo doi: hoac tat ca, hoac tat ca, hoac ko gi ca
     // nguyen li do all or nothing: Acid
-    public static void RemoveByid(){
+    public static void RemoveByid() {
         EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
         // tim theo key chi tra ve 1 dong
         Lectuter x = em.find(Lectuter.class, 1);
         Student y = em.find(Student.class, "SE2");
@@ -165,4 +174,18 @@ public class Main {
 
 
     }
+
+    public static void update() {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        // tim theo key chi tra ve 1 dong
+        Lectuter x = em.find(Lectuter.class, 5);
+        Student y = em.find(Student.class, "SE2");
+        x.setSalary(25_000_000);
+        y.setGpa(9.5);
+        em.getTransaction().commit();
+        System.out.println("Lectuter found: " + x);
+        System.out.println("Student found: " + y);
+    }
+    //toi test branch nhe
 }
