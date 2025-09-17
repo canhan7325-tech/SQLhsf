@@ -2,7 +2,7 @@ package com.annguyen.supperapp.entity;
 
 
 import jakarta.persistence.*;
-import lombok.*;
+
 
 @Entity // map 1 class thanh table
 @Table(name = "Lectuters")// ten table co the khac ten class

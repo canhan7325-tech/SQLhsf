@@ -12,17 +12,17 @@ import java.util.List;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.annguyen.supperapp-PU");
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.annguyen.orm-PU");
 
     public static void main(String[] args) {
-// insertStudent();// tao bang, chen data qua OOP, code first
-// getAllStudent();// sellect * from Student theo style OOP, code first
+ insertStudent();// tao bang, chen data qua OOP, code first
+getAllStudent();// sellect * from Student theo style OOP, code first
         insertLectuter();
-//    getAllLectuter();
+    getAllLectuter();
 //    searchLectuter();
-
-        update();
-        findByid();
+//
+//        update();
+//        findByid();
         emf.close();
 
     }
@@ -108,7 +108,7 @@ public class Main {
         //}
         //code ra data
         //insert into student values
-        em.getTransaction().commit();// hoac ca 3 insert thanh cong, hoac chua ban nao dc insert
+        //em.getTransaction().commit();// hoac ca 3 insert thanh cong, hoac chua ban nao dc insert
         // sellect   ko can , vi ko thay doi trang thai table
         em.close();// sa thai ong sep da xong
 //        emf.close(); // ngat ket noi csdl vi da xong - khi app shutdown moi dong
@@ -124,7 +124,7 @@ public class Main {
         //EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.annguyen.supperapp-PU");
 
         EntityManager em = emf.createEntityManager();
-        List<Student> result = em.createQuery("FROM Student ", Student.class).getResultList();
+        List<Student> result = em.createQuery("SELECT s FROM Student s", Student.class).getResultList();
         // query nay giong cau lenh sql: select * from Student, nhung theo style OOP , CO OBJECT VA DAU CHAM, GOI LA JPQL,HQL
         System.out.println("The list of students (" + result.size() + "records): ");
         for (Student x : result) {
