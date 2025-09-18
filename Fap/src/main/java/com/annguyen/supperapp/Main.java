@@ -15,10 +15,10 @@ public class Main {
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.annguyen.supperapp-PU");
 
     public static void main(String[] args) {
-// insertStudent();// tao bang, chen data qua OOP, code first
-// getAllStudent();// sellect * from Student theo style OOP, code first
+ insertStudent();// tao bang, chen data qua OOP, code first
+ getAllStudent();// sellect * from Student theo style OOP, code first
         insertLectuter();
-//    getAllLectuter();
+        getAllLectuter();
 //    searchLectuter();
 
         update();
@@ -108,7 +108,7 @@ public class Main {
         //}
         //code ra data
         //insert into student values
-        em.getTransaction().commit();// hoac ca 3 insert thanh cong, hoac chua ban nao dc insert
+//        em.getTransaction().commit();// hoac ca 3 insert thanh cong, hoac chua ban nao dc insert
         // sellect   ko can , vi ko thay doi trang thai table
         em.close();// sa thai ong sep da xong
 //        emf.close(); // ngat ket noi csdl vi da xong - khi app shutdown moi dong
